@@ -33,6 +33,8 @@ class Player:
     # [FILL IN YOUR VARIABLES HERE]
     countID = 0
     countPot = 0
+    playerCard = 0
+
     
     # in the __init__() function, use the two input variables to initialize the ID and starting pot of each player
     
@@ -46,21 +48,21 @@ class Player:
     
     def play(self, dealerCard):
         # [CREATE CODE FOR SELECTING A RANDOM CARD]
-        playerCard = random.choice(cards)
+        self.playerCard = random.choice(cards)
         
         # here we should have a conditional that tests the player's card value against the dealer card
         # and returns a statement saying whether the player won or lost the hand
         # before return the statement, make sure to either add or subtract the stake from the player's pot so that
         # the 'pot' variable tracks the player's money
         
-        if playerCard < dealerCard:
+        if self.playerCard < dealerCard:
             # [INCREMENT THE PLAYER'S POT, AND RETURN A MESSAGE]
-            self.countPot = self.countPot
-            return 'lost'
+            self.countPot -= gameStake
+            return 'player '+str(self.countID)+' '+'lost'+' '+str(self.playerCard)+' vs '+str(dealerCard)
         else:
             # [INCREMENT THE PLAYER'S POT, AND RETURN A MESSAGE]
             self.countPot += gameStake
-            return 'won'
+            return 'player '+str(self.countID)+' '+'won'+' '+str(self.playerCard)+' vs '+str(dealerCard)
         
     # create an accessor function to return the current value of the player's pot
     def returnPot(self):
@@ -82,7 +84,7 @@ def playHand(players):
     for player in players:
         dealerCard = random.choice(cards)
         #[EXECUTE THE PLAY() FUNCTION FOR EACH PLAYER USING THE DEALER CARD, AND PRINT OUT THE RESULTS]
-        print 'player '+str(player.returnID())+' '+player.play(dealerCard)
+        print player.play(dealerCard)
         
 # Next we will define a function that will check the balances of each player, and print out a message with the
 # player's ID and their balance.
